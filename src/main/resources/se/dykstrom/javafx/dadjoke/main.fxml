@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+Copyright 2020 Johan Dykström
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.dykstrom.javafx.dadjoke.MainController">
+    <top>
+        <BorderPane BorderPane.alignment="CENTER">
+            <BorderPane.margin>
+                <Insets left="10.0" right="10.0" top="10.0" />
+            </BorderPane.margin>
+            <top>
+                <Label text="Search for joke">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                    <padding>
+                        <Insets bottom="5.0" />
+                    </padding>
+                </Label>
+            </top>
+            <center>
+                <HBox>
+                    <TextField fx:id="textField" onAction="#handleSearchAction" promptText="Enter a search term or leave blank for a random joke" HBox.hgrow="ALWAYS">
+                        <HBox.margin>
+                            <Insets right="10.0" />
+                        </HBox.margin>
+                    </TextField>
+                    <Button defaultButton="true" mnemonicParsing="false" onAction="#handleSearchAction" text="Get joke" HBox.hgrow="NEVER" />
+                </HBox>
+            </center>
+        </BorderPane>
+    </top>
+    <center>
+        <TextArea fx:id="textArea" editable="false" prefHeight="400.0" wrapText="true" BorderPane.alignment="CENTER">
+            <BorderPane.margin>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </BorderPane.margin>
+        </TextArea>
+    </center>
+   <bottom>
+        <ProgressBar fx:id="progressBar" BorderPane.alignment="CENTER" visible="false" prefWidth="Infinity">
+           <BorderPane.margin>
+              <Insets bottom="10.0" left="10.0" right="10.0" />
+           </BorderPane.margin>
+        </ProgressBar>
+   </bottom>
+</BorderPane>
