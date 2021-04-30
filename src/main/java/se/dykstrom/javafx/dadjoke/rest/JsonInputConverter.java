@@ -16,14 +16,14 @@
 
 package se.dykstrom.javafx.dadjoke.rest;
 
-import com.gluonhq.connect.converter.InputStreamInputConverter;
-import com.google.gson.Gson;
-
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gluonhq.connect.converter.InputStreamInputConverter;
 
 /**
  * An InputConverter that converts a JSON object read from an InputStream into an object. This converter
@@ -35,6 +35,7 @@ public class JsonInputConverter<T> extends InputStreamInputConverter<T> {
 
     private static final Logger LOGGER = Logger.getLogger(JsonInputConverter.class.getName());
 
+    private final ObjectMapper mapper = new ObjectMapper();
     private final Class<? extends T> clazz;
 
     public JsonInputConverter(Class<? extends T> clazz) {
@@ -44,8 +45,7 @@ public class JsonInputConverter<T> extends InputStreamInputConverter<T> {
     @Override
     public T read() {
         try (Reader reader = new InputStreamReader(getInputStream())) {
-            Gson gson = new Gson();
-            return gson.fromJson(reader, clazz);
+            return mapper.readValue(reader, clazz);
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Something went wrong while reading from input stream.", e);
             return null;

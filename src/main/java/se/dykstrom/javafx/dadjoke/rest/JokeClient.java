@@ -16,15 +16,15 @@
 
 package se.dykstrom.javafx.dadjoke.rest;
 
+import java.io.IOException;
+import java.util.Random;
+
 import com.gluonhq.connect.GluonObservableObject;
 import com.gluonhq.connect.provider.DataProvider;
 import com.gluonhq.connect.provider.ObjectDataReader;
 import com.gluonhq.connect.provider.RestClient;
 import se.dykstrom.javafx.dadjoke.model.Joke;
 import se.dykstrom.javafx.dadjoke.model.JokeList;
-
-import java.io.IOException;
-import java.util.Random;
 
 /**
  * A REST client for retrieving jokes. This class uses Gluon Connect (https://github.com/gluonhq/connect)
@@ -47,7 +47,7 @@ public class JokeClient {
      * @return A {@link GluonObservableObject} that can be observed while waiting for the result.
      */
     public GluonObservableObject<Joke> getRandomJoke() {
-        RestClient client = createBasicRestClient();
+        final var client = createBasicRestClient();
         return DataProvider.retrieveObject(client.createObjectDataReader(new JsonInputConverter<>(Joke.class)));
     }
 
@@ -67,19 +67,19 @@ public class JokeClient {
             @Override
             public Joke readObject() throws IOException {
                 // Get the list that contains only the first joke
-                ObjectDataReader<JokeList> getJokeList = createSearchRestClient(searchTerm, "1").createObjectDataReader(new JsonInputConverter<>(JokeList.class));
-                JokeList listWithFirstJoke = getJokeList.readObject();
+                final var getJokeList = createSearchRestClient(searchTerm, "1").createObjectDataReader(new JsonInputConverter<>(JokeList.class));
+                final var listWithFirstJoke = getJokeList.readObject();
 
                 // Find out how many jokes there are in total, and pick a random one
-                int totalNumberOfJokes = listWithFirstJoke.total_jokes();
+                final var totalNumberOfJokes = listWithFirstJoke.total_jokes();
                 if (totalNumberOfJokes == 0) {
                     throw new IOException("No jokes about '" + searchTerm + "' found.");
                 }
-                String index = Integer.toString(random.nextInt(totalNumberOfJokes) + 1);
+                final var index = Integer.toString(random.nextInt(totalNumberOfJokes) + 1);
 
                 // Get the list that contains only the randomly chosen joke
-                ObjectDataReader<JokeList> getRandomJoke = createSearchRestClient(searchTerm, index).createObjectDataReader(new JsonInputConverter<>(JokeList.class));
-                JokeList listWithRandomJoke = getRandomJoke.readObject();
+                final var getRandomJoke = createSearchRestClient(searchTerm, index).createObjectDataReader(new JsonInputConverter<>(JokeList.class));
+                final var listWithRandomJoke = getRandomJoke.readObject();
 
                 // Extract the single joke that we know is in the list
                 return listWithRandomJoke.results()[0];

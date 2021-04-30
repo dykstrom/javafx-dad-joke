@@ -16,5 +16,7 @@
 
 package se.dykstrom.javafx.dadjoke.model;
 
-public record JokeList(Joke[] results, int total_jokes, int status) {
-}
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+public record JokeList(Joke[] results, int total_jokes, int status) { }

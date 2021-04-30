@@ -16,12 +16,12 @@
 
 package se.dykstrom.javafx.dadjoke;
 
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 /**
  * The main application.
@@ -30,8 +30,8 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("main.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 400, 300);
+        final var fxmlLoader = new FXMLLoader(App.class.getResource("main.fxml"));
+        final var scene = new Scene(fxmlLoader.load(), 400, 300);
         stage.setScene(scene);
         stage.setTitle("icanhazdadjoke.com");
         stage.show();
