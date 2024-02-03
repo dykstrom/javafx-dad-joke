@@ -27,8 +27,10 @@ import se.dykstrom.javafx.dadjoke.model.Joke;
 import se.dykstrom.javafx.dadjoke.model.JokeList;
 
 /**
- * A REST client for retrieving jokes. This class uses Gluon Connect (https://github.com/gluonhq/connect)
- * to make REST calls and return the result as an observable object with JavaFX properties that can be observed.
+ * A REST client for retrieving jokes. This class uses Gluon Connect
+ * (<a href="https://github.com/gluonhq/connect">...</a>) to make REST
+ * calls and return the result as an observable object with JavaFX
+ * properties that can be observed.
  */
 public class JokeClient {
 
